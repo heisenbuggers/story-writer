@@ -3,9 +3,10 @@ body{
 	margin: 0;
 }
 
-.container{
+#container{
 	width : 980px;
 	min-height: 300px;
 	position: relative;
-	margin: 0 auto;
+	margin: 30px auto;
+	text-align: center;
 }
