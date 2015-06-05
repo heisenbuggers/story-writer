@@ -1,15 +1,11 @@
 var express = require('express'),
 	app = express(),
-	http = require('http'),
-	fs = require('fs'),
-	port = process.env.PORT || 3000;
+	server = require('http').createServer(app),
+	port = process.env.PORT || 3000,
+	socket = require('socket.io')(server);
 
-app.use('/public', express.static(__dirname + '/public'));
+app.use(express.static(__dirname));
 
-app.get('/*', function(req, res) {
-	res.end(fs.readFileSync('index.html'));
-});
-
-http.createServer(app).listen(port, function(err) {
-	console.log('Express server running on port', port);
+server.listen(port,function(){
+	console.log('Express listening at ' + port);
 });
