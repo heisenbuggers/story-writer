@@ -4,21 +4,36 @@ export default React.createClass({
 
 	getInitialState() {
 		return {
-			message : ''
+			message : '',
+			story : ''
 		}
 	},
 
-	handleChange(event) {
-    	this.setState({message: event.target.value});
-    	this.props.socket.emit('onType', this.state.message);
+	componentDidMount(){
+		this.props.socket.on('pushData', data => {
+			this.setState({story: data.story});
+		});
+	},
+
+	handleChange(e) {
+    	this.setState({message: e.target.value});
+  	},
+
+  	handleKeyDown(e){
+  		let ENTER = 13;
+        if( e.keyCode == ENTER ) {
+            this.props.socket.emit('onType', {
+	    		'id' : this.props.socket.id,
+	    		'story' : this.state.message
+    		});
+        }
   	},
 
 	render() {
 		return <div>
 			<h2>Start Making a Story</h2>
-			<div className="story">
-				<input className="story-text" type="text" onChange={this.handleChange} value={this.state.message}/>
-			</div>
+			<input className="story-text" type="text" onKeyDown={this.handleKeyDown} onChange={this.handleChange} value={this.state.message}/>
+			<div className="story">{this.state.story}</div>
 		</div>;
 	}
 });
