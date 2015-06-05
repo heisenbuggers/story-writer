@@ -12,6 +12,6 @@ server.listen(port,function(){
 
 io.on('connection', function (socket) {
 	socket.on('onType', function (data) {
-   	 	io.emit('update',data);
+   	 	console.log(data);
   	});
 })
