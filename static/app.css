@@ -3,6 +3,13 @@ body{
 	margin: 0;
 }
 
+@font-face{
+	font-family:'Droid Sans';
+    src: url('droadsans.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #container{
 	width : 980px;
 	min-height: 300px;
@@ -26,4 +33,11 @@ body{
 .button{
 	padding: 2px 10px;
 	margin: 5px;
+}
+
+.story{
+	width : 300px;
+	height: 300px;
+	font-size: 20px;
+	font-familt : 'Droid Sans';
 }

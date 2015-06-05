@@ -13,5 +13,6 @@ server.listen(port,function(){
 io.on('connection', function (socket) {
 	socket.on('onType', function (data) {
    	 	console.log(data);
+   	 	socket.emit('pushData', data);
   	});
 })
