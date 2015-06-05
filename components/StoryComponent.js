@@ -10,9 +10,9 @@ export default React.createClass({
 	},
 
 	componentDidMount(){
-		this.props.socket.on('pushData', function(data){
+		this.props.socket.on('pushData', data => {
 			this.setState({story: data.story});
-		}.bind(this));
+		});
 	},
 
 	handleChange(e) {
