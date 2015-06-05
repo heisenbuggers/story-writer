@@ -35,9 +35,17 @@ body{
 	margin: 5px;
 }
 
+.story-text{
+	width: 500px;
+	border: none;
+	outline: none;
+	font-size: 20px;
+}
+
 .story{
 	width : 300px;
 	height: 300px;
+	margin-top: 25px;
 	font-size: 20px;
-	font-familt : 'Droid Sans';
+	font-family : 'Droid Sans';
 }
