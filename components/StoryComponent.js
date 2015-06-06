@@ -1,11 +1,14 @@
 import React from 'react';
+import PopUpComponent from './PopUpComponent';
 
 export default React.createClass({
 
 	getInitialState() {
 		return {
 			message : '',
-			story : ''
+			story : '',
+			userNameEntered: false,
+			userName: ''
 		}
 	},
 
@@ -29,11 +32,25 @@ export default React.createClass({
         }
   	},
 
+  	handleUserNameEntered(name) {
+  		this.setState({
+  			userNameEntered: true,
+  			userName : name
+  		});
+  	},
+
 	render() {
 		return <div>
-			<h2>Start Making a Story</h2>
-			<input className="story-text" type="text" onKeyDown={this.handleKeyDown} onChange={this.handleChange} value={this.state.message}/>
-			<div className="story">{this.state.story}</div>
+			<h1>Start Making a Story</h1>
+			{this.state.userNameEntered ? 
+				<div>
+					<input ref="storyInput" className="story-text" type="text" onKeyDown={this.handleKeyDown} 
+						onChange={this.handleChange} value={this.state.message} placeholder={"start typing " + this.state.userName} />
+					<div className="story">{this.state.story}</div>
+				</div>
+			 : 
+			 <PopUpComponent handleUserNameEntered={this.handleUserNameEntered}/>
+			}
 		</div>;
 	}
 });
