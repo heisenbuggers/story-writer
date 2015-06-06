@@ -13,7 +13,6 @@ export default React.createClass({
 
 	componentDidMount() {
 		this.canvasPlane = this.refs.drawPlane.getDOMNode();
-		this.context = this.canvasPlane.getContext('2d');
 		this.canvasPlane.addEventListener('mousedown', this.drawCanvas);
 		this.canvasPlane.addEventListener('mousemove', this.drawCanvas);
 		this.canvasPlane.addEventListener('mouseup', this.drawCanvas);
@@ -28,28 +27,29 @@ export default React.createClass({
 		this.canvasPlane.removeEventListener('mouseup', this.drawCanvas);
 	},
 
-	_mousedown(x, y) {
-		this.context.beginPath();
-		this.context.moveTo(x, y);
+	_mousedown(x, y, context) {
+		context.beginPath();
+		context.moveTo(x, y);
 		this.setState({started: true});
 	},
 
-	_mousemove(x, y){
+	_mousemove(x, y, context){
 		if (this.state.started) {
-			this.context.lineTo(x, y);
-			this.context.stroke();
+			context.lineTo(x, y);
+			context.stroke();
 		}
 	},
 
-	_mouseup(x, y){
+	_mouseup(x, y, context){
 		if (this.state.started) {
-			this._mousemove(x, y);
+			this._mousemove(x, y, context);
 			this.setState({started: false});
 		}
 	},
 
 	drawCanvas(e){
 		let x, y;
+		this.context = this.canvasPlane.getContext('2d');
 
 		if (e.layerX || e.layerX == 0) {
 			x = e.layerX;
@@ -61,12 +61,13 @@ export default React.createClass({
 
 		let func = e.type;
 		if (func) {
-			this['_'+func](x, y);
+			this['_'+func](x, y, this.context);
 		}
 	},
 
 	handleClick(e){
 		var data = this.canvasPlane.toDataURL();
+		this.context.clearRect(0,0,this.canvasPlane.width,this.canvasPlane.height);
 		this.props.socket.emit('sendPic', {
 			'dataURL' : data,
 			'name' : this.props.userName
