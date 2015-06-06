@@ -44,9 +44,9 @@ export default React.createClass({
   	},
 
   	handleImageRendering(url) {
-  		this.setState({
-  			imageSrc : url
-  		});
+		this.setState({
+			imageSrc : url
+		});
   	},
 
 	render() {
@@ -61,8 +61,10 @@ export default React.createClass({
 							handleImageRendering={this.handleImageRendering} />
 					</div>
 					<div className="right-side">
-						<div className="story">{this.state.story}</div>
-						<image src={this.state.imageSrc} />
+						<div className="story">{this.state.story}
+							<image className="img-tooltip" src={this.state.imageSrc} />
+						</div>
+						<image className="renderedImage" src={this.state.imageSrc} />
 					</div>
 				</div>
 			 :
