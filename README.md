@@ -1,2 +1,2 @@
 # story-writer
-Write stories collaboratively 
+Write stories collaboratively - Built on Flipkart Hackathon 2015
