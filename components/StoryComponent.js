@@ -13,7 +13,7 @@ export default React.createClass({
 	},
 
 	componentDidMount(){
-		this.props.socket.on('pushData', data => {
+		this.props.socket.on('newStory', data => {
 			this.setState({story: data.story});
 		});
 	},
@@ -25,9 +25,10 @@ export default React.createClass({
   	handleKeyDown(e){
   		let ENTER = 13;
         if( e.keyCode == ENTER ) {
+        	this.refs.storyInput.props.value = '';
             this.props.socket.emit('onType', {
-	    		'id' : this.props.socket.id,
-	    		'story' : this.state.message
+	    		'story' : this.state.message,
+	    		'name' : this.state.userName
     		});
         }
   	},
