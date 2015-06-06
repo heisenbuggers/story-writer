@@ -10,7 +10,11 @@ export default React.createClass({
 
 	handleClick(e) {
 		let name = this.refs.name.props.value;
-		this.props.handleUserNameEntered(name);
+		if(name.length > 0){
+			this.props.handleUserNameEntered(name);
+		}else{
+			alert('Enter a Name');	
+		}
 	},
 
 	handleChange(e) {

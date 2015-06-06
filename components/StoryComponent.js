@@ -14,7 +14,9 @@ export default React.createClass({
 
 	componentDidMount(){
 		this.props.socket.on('newStory', data => {
-			this.setState({story: data.story});
+			let preData = this.state.story;
+			this.setState({story: preData + ' ' + data.story});
+			this.refs.storyInput.getDOMNode('value').value = '';
 		});
 	},
 
@@ -25,7 +27,6 @@ export default React.createClass({
   	handleKeyDown(e){
   		let ENTER = 13;
         if( e.keyCode == ENTER ) {
-        	this.refs.storyInput.props.value = '';
             this.props.socket.emit('onType', {
 	    		'story' : this.state.message,
 	    		'name' : this.state.userName
