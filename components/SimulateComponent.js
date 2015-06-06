@@ -7,10 +7,7 @@ export default React.createClass({
 
 	getInitialState(){
 		return {
-			pattern: [],
-			started: false,
-			userNameEntered:false,
-			userName:''
+			started: false
 		}
 	},
 
@@ -20,9 +17,8 @@ export default React.createClass({
 		this.canvasPlane.addEventListener('mousedown', this.drawCanvas);
 		this.canvasPlane.addEventListener('mousemove', this.drawCanvas);
 		this.canvasPlane.addEventListener('mouseup', this.drawCanvas);
-		this.props.socket.on('newDraw', data => {
-			let predata = this.state.drawing;
-			this.setState({src: predata});
+		this.props.socket.on('sendURL', data => {
+			this.props.handleImageRendering(data.dataURL);
 		});
 	},
 
@@ -69,29 +65,19 @@ export default React.createClass({
 		}
 	},
 
-	handleUserNameEntered(name) {
-		this.setState({
-			userNameEntered: true,
-			userName : name
-		});
-	},
-
 	handleClick(e){
-		var data=this.canvasPlane.toDataURL();
-		console.log('dsf');
-		this.props.socket.emit('onDraw', {
-			'drawing' : data,
-			'name' : this.state.userName
+		var data = this.canvasPlane.toDataURL();
+		this.props.socket.emit('sendPic', {
+			'dataURL' : data,
+			'name' : this.props.userName
 		});
 	},
 
 	render() {
 		return <div>
-				<div>
-					<canvas ref="drawPlane" width="500px" height="500px"/>
-					<button onClick={this.handleClick} value="Submit">Submit</button>
-					<img src={this.state.src}/>
-				</div>
+			<p>Draw the picture using your mouse. Fun!</p>
+			<canvas className="draw-area" ref="drawPlane" width="500px" height="300px"/>
+			<button className="send-image" onClick={this.handleClick}>Send Image</button>
 		</div>
 	}
 });

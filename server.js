@@ -12,14 +12,10 @@ server.listen(port,function(){
 
 io.on('connection', function (socket) {
 	socket.on('onType', function (data) {
-   	 	console.log(data);
    	 	io.emit('newStory', data);
   	});
-});
 
-io.on('connection', function (socket) {
-	socket.on('onDraw', function (data) {
-   	 	console.log(data);
-   	 	io.emit('newDraw', data);
+  	socket.on('sendPic', function (data) {
+   	 	io.emit('sendURL', data);
   	});
 });

@@ -14,12 +14,36 @@ body{
 }
 
 #container{
-	width : 980px;
-	min-height: 400px;
+	width : 1150px;
+	min-height: 600px;
 	position: relative;
 	margin: 30px auto;
 	text-align: center;
 	background-color: #fff;
+}
+
+#container .left-side, #container .right-side{
+	width: 550px;
+	height: auto;
+	display: inline-block;
+}
+
+#container .left-side{
+	border-right: 1px solid #ccc;
+}
+
+#container .left-side p{
+	margin:20px;
+	font-size: 18px;
+	text-align: left;
+}
+
+#container .right-side{
+	vertical-align: top;
+  	padding: 10px;
+}
+#container .draw-area{
+	border: 1px solid;
 }
 
 .popup{
@@ -38,7 +62,7 @@ body{
 	padding: 2px;
 }
 
-.popup .button{
+.popup .button, .send-image{
 	padding: 6px 10px;
 	display: block;
 	margin: 20px auto;
@@ -54,10 +78,9 @@ body{
 	border-bottom: 1px dotted;
 }
 
-.story{
+.right-side .story{
 	width : 100%;
-	height: 50%;
-	margin: 25px;
+	height: 100%;
 	font-size: 25px;
 	text-align: left;
 }
