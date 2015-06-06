@@ -44,13 +44,13 @@ export default React.createClass({
 	render() {
 		return <div>
 			<h1>Start Making a Story</h1>
-			{this.state.userNameEntered ? 
+			{this.state.userNameEntered ?
 				<div>
-					<input ref="storyInput" className="story-text" type="text" onKeyDown={this.handleKeyDown} 
+					<input ref="storyInput" className="story-text" type="text" onKeyDown={this.handleKeyDown}
 						onChange={this.handleChange} value={this.state.message} placeholder={"start typing " + this.state.userName} />
 					<div className="story">{this.state.story}</div>
 				</div>
-			 : 
+			 :
 			 <PopUpComponent handleUserNameEntered={this.handleUserNameEntered}/>
 			}
 		</div>;

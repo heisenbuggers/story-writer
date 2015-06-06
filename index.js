@@ -8,6 +8,8 @@ let PageComponent = React.createClass({
 	render() {
 		return <div>
 			<StoryComponent socket={socket}/>
+			<SimulateComponent socket={socket}/>
+
 		</div>;
 	}
 });

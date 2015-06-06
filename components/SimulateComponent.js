@@ -8,7 +8,9 @@ export default React.createClass({
 	getInitialState(){
 		return {
 			pattern: [],
-			started: false
+			started: false,
+			userNameEntered:false,
+			userName:''
 		}
 	},
 
@@ -18,6 +20,10 @@ export default React.createClass({
 		this.canvasPlane.addEventListener('mousedown', this.drawCanvas);
 		this.canvasPlane.addEventListener('mousemove', this.drawCanvas);
 		this.canvasPlane.addEventListener('mouseup', this.drawCanvas);
+		this.props.socket.on('newStory', data => {
+			let predata = this.state.drawing;
+			this.setState({src: predata});
+		});
 	},
 
 	componentWillUnmount() {
@@ -63,9 +69,29 @@ export default React.createClass({
 		}
 	},
 
+	handleUserNameEntered(name) {
+		this.setState({
+			userNameEntered: true,
+			userName : name
+		});
+	},
+
+	handleClick(e){
+		var data=this.canvasPlane.toDataURL();
+		console.log('dsf');
+		this.props.socket.emit('onType', {
+			'drawing' : data,
+			'name' : this.state.userName
+		});
+	},
+
 	render() {
 		return <div>
-			<canvas ref="drawPlane" width="500px" height="500px"/>
+				<div>
+					<canvas ref="drawPlane" width="500px" height="500px"/>
+					<button onClick={this.handleClick} value="Submit">Submit</button>
+					<img src={this.state.src}/>
+				</div>
 		</div>
 	}
 });
