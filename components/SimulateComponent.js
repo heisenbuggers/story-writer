@@ -17,7 +17,7 @@ export default React.createClass({
 		this.canvasPlane.addEventListener('mousemove', this.drawCanvas);
 		this.canvasPlane.addEventListener('mouseup', this.drawCanvas);
 		this.props.socket.on('sendURL', data => {
-			this.props.handleImageRendering(data.dataURL);
+			this.props.handleImageRendering(data.imageSrc);
 		});
 	},
 
@@ -66,10 +66,10 @@ export default React.createClass({
 	},
 
 	handleClick(e){
-		var data = this.canvasPlane.toDataURL();
+		var dataURL = this.canvasPlane.toDataURL();
 		this.context.clearRect(0,0,this.canvasPlane.width,this.canvasPlane.height);
 		this.props.socket.emit('sendPic', {
-			'dataURL' : data,
+			'imageSrc' : dataURL,
 			'name' : this.props.userName
 		});
 	},

@@ -7,17 +7,22 @@ export default React.createClass({
 	getInitialState() {
 		return {
 			message : '',
-			story : '',
+			story : this.props.storeddata,
 			userNameEntered: false,
 			userName: '',
 			imageSrc: '',
 		}
 	},
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({'story' : nextProps.storeddata});
+	},
+
 	componentDidMount(){
 		this.props.socket.on('newStory', data => {
 			let preData = this.state.story;
-			this.setState({story: preData + ' ' + data.story});
+			preData.push({'message': data.message, 'userName': data.name})
+			this.setState({story: preData});
 			this.refs.storyInput.getDOMNode('value').value = '';
 		});
 	},
@@ -30,8 +35,9 @@ export default React.createClass({
   		let ENTER = 13;
         if( e.keyCode == ENTER ) {
             this.props.socket.emit('onType', {
-	    		'story' : this.state.message,
-	    		'name' : this.state.userName
+	    		'message' : this.state.message,
+	    		'name' : this.state.userName,
+	    		'imageSrc' : ''
     		});
         }
   	},
@@ -44,9 +50,9 @@ export default React.createClass({
   	},
 
   	handleImageRendering(url) {
-		this.setState({
-			imageSrc : url
-		});
+		let preData = this.state.story;
+		preData.push({'imageSrc' : url, 'message': ''})
+		this.setState({story: preData});
   	},
 
 	render() {
@@ -61,10 +67,14 @@ export default React.createClass({
 							handleImageRendering={this.handleImageRendering} />
 					</div>
 					<div className="right-side">
-						<div className="story">{this.state.story}
-							<image className="img-tooltip" src={this.state.imageSrc} />
+						<div className="story">
+							{this.state.story.map(o => {
+								return <span>
+									<span> {o.message} </span>
+									{o.imageSrc ? <image className="img-tooltip" src={o.imageSrc} /> : ''}
+								</span>
+							})}
 						</div>
-						<image className="renderedImage" src={this.state.imageSrc} />
 					</div>
 				</div>
 			 :
