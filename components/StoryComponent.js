@@ -57,7 +57,7 @@ export default React.createClass({
 
 	render() {
 		return <div>
-			<h1>Start Making a Story</h1>
+			<h1>Start Making Your Story</h1>
 			{this.state.userNameEntered ?
 				<div>
 					<div className="left-side">

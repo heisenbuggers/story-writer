@@ -97,11 +97,10 @@ body{
 
 .right-side img:hover{
   	transform: scale(10,10);
-  	outline: none !important;
   	z-index: 1;
   	position: absolute;
   	background-color: #fff;
-  	transition: transform 400ms ease-in;
+  	transition: transform 200ms ease-in;
 }
 
 h1{

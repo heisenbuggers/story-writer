@@ -1,7 +1,7 @@
 import React from 'react';
 import StoryComponent from './components/StoryComponent';
 
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect();
 
 let PageComponent = React.createClass({
 
