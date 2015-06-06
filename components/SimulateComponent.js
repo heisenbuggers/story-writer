@@ -20,7 +20,7 @@ export default React.createClass({
 		this.canvasPlane.addEventListener('mousedown', this.drawCanvas);
 		this.canvasPlane.addEventListener('mousemove', this.drawCanvas);
 		this.canvasPlane.addEventListener('mouseup', this.drawCanvas);
-		this.props.socket.on('newStory', data => {
+		this.props.socket.on('newDraw', data => {
 			let predata = this.state.drawing;
 			this.setState({src: predata});
 		});
@@ -79,7 +79,7 @@ export default React.createClass({
 	handleClick(e){
 		var data=this.canvasPlane.toDataURL();
 		console.log('dsf');
-		this.props.socket.emit('onType', {
+		this.props.socket.emit('onDraw', {
 			'drawing' : data,
 			'name' : this.state.userName
 		});

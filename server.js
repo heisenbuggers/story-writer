@@ -17,3 +17,9 @@ io.on('connection', function (socket) {
   	});
 });
 
+io.on('connection', function (socket) {
+	socket.on('onDraw', function (data) {
+   	 	console.log(data);
+   	 	io.emit('newDraw', data);
+  	});
+});
